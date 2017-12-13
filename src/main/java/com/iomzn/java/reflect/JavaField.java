@@ -3,7 +3,8 @@ package com.iomzn.java.reflect;
 import java.lang.reflect.Field;
 
 public class JavaField {
-    public String sampleField;
+    public String samplePublicField;
+    private String samplePrivateField;
 
     public static void main(String[] args) throws Exception {
         // example
@@ -11,19 +12,29 @@ public class JavaField {
         JavaField instance = new JavaField();
 
         // field
-        Field field = clazz.getField("sampleField");
-        Field[] fields = clazz.getFields();
+        Field publicField = clazz.getField("samplePublicField");
+        Field[] publicFields = clazz.getFields();
+        Field privateField = clazz.getDeclaredField("samplePrivateField");
+        Field[] privateFields = clazz.getDeclaredFields();
 
         // field name
-        String fieldName = field.getName(); // sampleField
+        String publicFieldName = publicField.getName(); // samplePublicField
+        String privateFieldName = privateField.getName(); // samplePrivateField
 
         // field type
-        Class<?> fieldType = field.getType();
+        Class<?> publicFieldType = publicField.getType();
+        Class<?> privateFieldType = privateField.getType();
+
+        // note: because main method belong to this class, so main can access
+        // private field, so this is not required
+        privateField.setAccessible(true);
 
         // get field value
-        String fieldValue = (String) field.get(instance); // null
+        String publicFieldValue  = (String) publicField.get(instance); // null
+        String privateFieldValue = (String) privateField.get(instance); // null
 
         // set field value
-        field.set(instance, "init");
+        publicField.set(instance, "init public");
+        privateField.set(instance, "init private");
     }
 }

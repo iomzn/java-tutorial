@@ -1,46 +1,67 @@
 package com.iomzn.java.reflect;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class JavaClass {
 
     public static void main(String[] args) throws Exception {
         // instance
-        Class v01 = JavaClass.class;
-        Class v02 = Class.forName("com.iomzn.java.reflect.JavaClass");
+        Class v01 = JavaSample.class;
+        Class v02 = Class.forName("com.iomzn.java.reflect.JavaSample");
+        Class v03 = ClassLoader.getSystemClassLoader().loadClass("com.iomzn.java.reflect.JavaSample");
+        Class v04 = new JavaSample().getClass(); // not recommended
 
         // example
-        Class clazz = JavaClass.class;
+        Class<JavaSample> clazz = JavaSample.class;
 
         // class name
-        String clazzName = clazz.getName(); // com.iomzn.java.reflect.JavaClass
-        String clazzSimpleName = clazz.getSimpleName(); // JavaClass
+        String name = clazz.getName(); // com.iomzn.java.reflect.JavaSample
+        String simpleName = clazz.getSimpleName(); // JavaSample
+
+        // package name
+        String packageName = clazz.getPackageName(); // com.iomzn.java.reflect
+
+        // package info
+        Package packageInfo = clazz.getPackage();
 
         // modifiers
-        int clazzModifiers = clazz.getModifiers();
+        int modifiers = clazz.getModifiers();
 
-        // package
-        Package clazzPackage = clazz.getPackage();
-
-        // super class
-        Class clazzSuperclass = clazz.getSuperclass();
+        // superclass
+        Class superclass = clazz.getSuperclass();
 
         // interfaces
-        Class[] clazzInterfaces = clazz.getInterfaces();
+        Class[] interfaces = clazz.getInterfaces();
 
-        // constructors
-        Constructor[] clazzConstructors = clazz.getConstructors();
+        // constructor
+        Constructor<JavaSample> defaultConstructor = clazz.getConstructor();
+        Constructor<JavaSample> constructorWithArg = clazz.getConstructor(String.class);
+        Constructor<?>[] constructors = clazz.getConstructors();
+        Constructor<JavaSample> privateConstructor = clazz.getDeclaredConstructor(String.class, String.class);
+        Constructor<?>[] privateConstructors = clazz.getDeclaredConstructors();
 
-        // methods
-        Method[] clazzMethods = clazz.getMethods();
+        // method
+        Method method = clazz.getMethod("publicMethod", String.class);
+        Method[] methods = clazz.getMethods();
 
-        // fields
-        Field[] clazzFields = clazz.getFields();
 
-        // annotations
-        Annotation[] clazzAnnotations = clazz.getAnnotations();
+
+
+
+
+
+
+
+
+
+
+
+        System.out.println(packageName);
+
+
+
+
+
     }
 }
