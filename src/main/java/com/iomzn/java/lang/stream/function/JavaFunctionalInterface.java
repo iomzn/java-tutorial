@@ -1,4 +1,4 @@
-package com.iomzn.java.lang.function;
+package com.iomzn.java.lang.stream.function;
 
 public class JavaFunctionalInterface {
 
